@@ -26,16 +26,38 @@ class TodosController < ApplicationController
   def create
     @todo = Todo.new(todo_params)
 
-    respond_to do |format|
-      if @todo.save
-        format.html { redirect_to @todo, notice: 'Todo was successfully created.' }
-        format.json { render :show, status: :created, location: @todo }
-      else
-        format.html { render :new }
-        format.json { render json: @todo.errors, status: :unprocessable_entity }
-      end
+    if @todo.save
+
+    else
+      render json: {
+        error: {
+          message: @todo.errors.full_messages.to_sentence
+        }
+      }
     end
+
+    # this should read in the params submitted, and
+    # make a new todo.
+    # it will return either an error object, or the new
+    # todo
+    # you'll need to edit `create.json.jbuilder` in
+    # views/todos/ to format the json object
   end
+
+
+  # def create
+  #   @todo = Todo.new(todo_params)
+
+  #   respond_to do |format|
+  #     if @todo.save
+  #       format.html { redirect_to @todo, notice: 'Todo was successfully created.' }
+  #       format.json { render :show, status: :created, location: @todo }
+  #     else
+  #       format.html { render :new }
+  #       format.json { render json: @todo.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /todos/1
   # PATCH/PUT /todos/1.json
