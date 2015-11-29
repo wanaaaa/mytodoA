@@ -1,3 +1,9 @@
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.firstName= "John";
+    $scope.lastName= "Doe";
+});
+
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
